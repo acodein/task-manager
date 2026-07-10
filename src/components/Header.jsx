@@ -1,9 +1,9 @@
-function Header(){
+function Header({title,subtitle}){
 return(
-    <div>
-        <h1>Task Manager</h1>
-        <h3>Organize your day</h3>
-    </div>
+    <header>
+        <h1>{title}</h1>
+        <h3>{subtitle}</h3>
+    </header>
 )
 }
 
