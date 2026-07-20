@@ -1,9 +1,9 @@
 function Footer({name,year,msg}){
  return(
-    <div>
+    <div id="footer">
         <p>{name}</p>
         <p>{year}</p>
-        <p>{msg}</p>
+        <p id="msg">{msg}</p>
     </div>
  )
 }

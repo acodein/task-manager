@@ -1,7 +1,7 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Welcome from "./components/Welcome";
-import Counter from "./components/Counter";
+// import Counter from "./components/Counter";
 import Task from "./components/Task";
 import AddTask from "./components/AddTask";
 import { useState } from "react";
@@ -36,6 +36,14 @@ function editTask(editId,editText){
 })
 )}
 
+function toggleTask(taskId){
+  setTasks(tasks.map(task=>{
+    if(taskId === task.id){
+      return {...task,completed:(!task.completed)}
+    }
+    return task
+  }))
+}
 
   return (
     <>
@@ -50,20 +58,24 @@ function editTask(editId,editText){
 
      <AddTask add = {addTask} />
      
+  <ul>
       {tasks.map(task=>{
-        return <Task key={task.id} task={task}  deleteTask={deleteTask}
+        return( 
+        <Task key={task.id} task={task}  deleteTask={deleteTask}
         editTask = {editTask}
         editingId= {editingId}
         setEditingId = {setEditingId}
+        toggleTask={toggleTask}
         />
+        )
       })}
-     
-     <Counter />
+     </ul>
+     {/* <Counter /> */}
      
      <Footer
-      name = "acodein"
+      name = "@acodein"
       year = {2026}
-      msg = "Built with React"
+      msg = "Made with ❤️ Built with React"
      />
      </>
   );

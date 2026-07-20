@@ -109,3 +109,31 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+li{
+  padding: 5px;
+  margin: 2px;
+}
+
+li * {
+  /* padding: 2px; */
+  margin: 3px;
+}
+
+li p{
+  display: inline-block;
+  width: 40%;
+}
+
+#footer{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  gap: 15px;
+  padding-bottom: 10px;
+}
+
+
+
