@@ -4,17 +4,16 @@ import Welcome from "./components/Welcome";
 // import Counter from "./components/Counter";
 import Task from "./components/Task";
 import AddTask from "./components/AddTask";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Filter from "./components/Filter";
 
 function App(){
 
-   const [editingId,setEditingId] = useState(null);
-  const [tasks,setTasks] =useState([
-  { id: 1, text: "Learn React", completed: false },
-  { id: 2, text: "Build Project", completed: true },
-  { id: 3, text: "Push to GitHub", completed:false },
-])
+  const [editingId,setEditingId] = useState();
+  const [tasks,setTasks] =useState(()=>{
+    return JSON.parse(localStorage.getItem("tasks")) || []
+  })
+
 
 const [filter,setFilter] = useState("all");
 
@@ -22,8 +21,6 @@ function changeFilter(type){
     setFilter(type)
   }
   
-
-
 const nextId = tasks.length === 0 ? 1 : tasks[tasks.length-1].id + 1;
 
 function addTask(input){
@@ -58,13 +55,15 @@ function toggleTask(taskId){
           tasks.filter(task=>task.completed): filter === "active" ? 
           tasks.filter(task=>!task.completed) : tasks
            
+   // Saving tasks to local storage
+    useEffect(()=>localStorage.setItem("tasks",JSON.stringify(tasks)),[tasks])
+
   return (
     <>
     <Header 
      title="Task Manager"
      subtitle = "Organize your day"/>
      
-   
      <Welcome
       name="Aditya"
       taskCount={tasks.length}
