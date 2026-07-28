@@ -2,6 +2,8 @@ import { useState } from "react";
 
 function Task({task,deleteTask, editTask,editingId,setEditingId,toggleTask}){
   
+   
+
    const [editText, setEditText] = useState(task.text)
 
     function handleClick(){
@@ -42,7 +44,8 @@ if (task.completed) {
    const buttonName = isEditing ? "Save" : "Edit"
 
  return(
-    
+    <>
+   
     <li>
       <input type="checkbox"
       checked={task.completed} onChange={handleToggle}/>
@@ -56,9 +59,8 @@ if (task.completed) {
       <button type="button" 
                onClick={ isEditing ? handleSave:handleEdit}>{buttonName}</button>
     </li>  
+    </>
  )
 }
 
 export default Task;
-
-

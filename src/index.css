@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
@@ -117,9 +117,9 @@ li{
 
 li * {
   /* padding: 2px; */
-  margin: 3px;
-}
-
+  /* margin: 3px;
+/* } */
+/* 
 li p{
   display: inline-block;
   width: 40%;
@@ -136,4 +136,4 @@ li p{
 }
 
 
-
+ */ 

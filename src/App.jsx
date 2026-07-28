@@ -14,8 +14,9 @@ function App(){
     return JSON.parse(localStorage.getItem("tasks")) || []
   })
 
+  const [filter,setFilter] = useState("all");
 
-const [filter,setFilter] = useState("all");
+  const  [search,setSearch] = useState("");
 
 function changeFilter(type){
     setFilter(type)
@@ -51,9 +52,20 @@ function toggleTask(taskId){
   }))
 }
 
-  const displayedTasks = filter === "completed" ?
-          tasks.filter(task=>task.completed): filter === "active" ? 
-          tasks.filter(task=>!task.completed) : tasks
+  let displayedTasks = tasks;
+ 
+  if(filter === "completed") {
+        displayedTasks =  tasks.filter(task=>task.completed);
+        }
+
+      else if( filter === "active")  {
+          displayedTasks = tasks.filter(task=>!task.completed);     
+        }
+        
+  if(search !==  ""){
+    let serachText = search.toLowerCase()
+     displayedTasks= displayedTasks.filter(task=>task.text.toLowerCase().includes(serachText))
+  }
            
    // Saving tasks to local storage
     useEffect(()=>localStorage.setItem("tasks",JSON.stringify(tasks)),[tasks])
@@ -70,12 +82,18 @@ function toggleTask(taskId){
      />
 
       <AddTask add = {addTask} />
-     <br />
+      <br />
        <Filter changeFilter = {changeFilter}/>
         <p>Filter is set to {filter}</p>
+
+     <div>
+      <input type="search" value={search} onChange={(e)=>setSearch(e.target.value)}/>&nbsp;
+
       
+     </div>
 
      <ul>
+      
       {
       displayedTasks.map(task=>
         <Task key={task.id} task={task}  deleteTask={deleteTask}
