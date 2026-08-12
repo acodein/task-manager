@@ -9,7 +9,7 @@ function AddTask({add}){
     }
 
     return(
-        <>
+        <div id="input-content">
             <input 
                 type="text" 
                 placeholder="task" 
@@ -19,7 +19,7 @@ function AddTask({add}){
             <button 
                 type="submit" 
                 onClick={handleClick}>Add</button>
-        </>
+        </div>
     )
 }
 

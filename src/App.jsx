@@ -85,7 +85,6 @@ function toggleTask(taskId){
      subtitle = "Organize your day"/>
      
      <Welcome
-      name="Aditya"
       taskCount={tasks.length}
      />
 
@@ -94,10 +93,9 @@ function toggleTask(taskId){
        <Filter changeFilter = {changeFilter}/>
         <p>Filter is set to {filter}</p>
 
-     <div>
-      <input type="search" value={search} onChange={(e)=>setSearch(e.target.value)}/>&nbsp;
-
-      
+     <div id="search">
+      <p>Search</p>
+      <input type="search" value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="search task"/>&nbsp;
      </div>
 
      <ul>
@@ -113,7 +111,6 @@ function toggleTask(taskId){
       )
       }
      </ul>
-     {/* <Counter /> */}
      
      <Footer
       name = "@acodein"
