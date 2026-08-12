@@ -1,21 +1,19 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Welcome from "./components/Welcome";
-// import Counter from "./components/Counter";
 import Task from "./components/Task";
 import AddTask from "./components/AddTask";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import Filter from "./components/Filter";
+import {taskReducer,init} from "./hooks/taskReducer";
 
 function App(){
 
   const [editingId,setEditingId] = useState();
-  const [tasks,setTasks] =useState(()=>{
-    return JSON.parse(localStorage.getItem("tasks")) || []
-  })
+
+  const [tasks,dispatch] =useReducer(taskReducer,[],init)
 
   const [filter,setFilter] = useState("all");
-
   const  [search,setSearch] = useState("");
 
 function changeFilter(type){
@@ -25,31 +23,36 @@ function changeFilter(type){
 const nextId = tasks.length === 0 ? 1 : tasks[tasks.length-1].id + 1;
 
 function addTask(input){
-  setTasks([...tasks,{id:nextId,text:input,completed:false}])
+  dispatch({
+    type:'add',
+    task:{
+      id: nextId,
+      text: input,
+      completed: false
+    }
+  })
 }
 
 function deleteTask(clickedId){
-  setTasks(tasks.filter(task=>task.id !== clickedId))
+  dispatch({
+    type: "delete",
+    id: clickedId
+  });
 }
 
 function editTask(editId,editText){
-//  console.log(editId,editText)
- 
- setTasks(tasks.map(task=>{
-   if(editId === task.id){
-    return {...task,text:editText}
-   };
-   return task;
-})
-)}
+  dispatch({
+    type: 'edit',
+    id: editId,
+    text: editText
+  });
+}
 
 function toggleTask(taskId){
-  setTasks(tasks.map(task=>{
-    if(taskId === task.id){
-      return {...task,completed:(!task.completed)}
-    }
-    return task
-  }))
+  dispatch({
+    type: "toggle",
+    id: taskId,
+  })
 }
 
   let displayedTasks = tasks;
@@ -68,7 +71,12 @@ function toggleTask(taskId){
   }
            
    // Saving tasks to local storage
-    useEffect(()=>localStorage.setItem("tasks",JSON.stringify(tasks)),[tasks])
+    useEffect(()=>
+      localStorage.setItem(
+          "tasks",
+          JSON.stringify(tasks)
+        ),
+         [tasks]);
 
   return (
     <>
